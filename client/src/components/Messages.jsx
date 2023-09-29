@@ -19,7 +19,7 @@ const Messages = () => {
             <div key={index} className={`border-[1px] ${message.status === "read" ? "bg-white": "bg-blue-300 border-blue-500"} p-2 rounded-md text-sm cursor-pointer`}>
               <p className='font-bold mb-2'>{message.username} {message.status === "unread" &&<span className='ml-1 bg-red-500 p-1 text-white text-xs rounded-md font-thin'>Unread</span>}</p>
               {message.chat.map((item,index)=>(
-                <Link to="/messages/1">
+                <Link to="/messages/message/1" key={index}>
                 <div className='flex'>
                <span className='font-semibold'>{item.userName}:</span><p key={index}>{item.message.substring(0,10)}...</p>
                </div>

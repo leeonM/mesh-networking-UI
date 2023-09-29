@@ -2,7 +2,6 @@ import { Outlet,createBrowserRouter,RouterProvider,Navigate } from "react-router
 import LeftBar from "./components/LeftBar";
 import Messages from "./components/Messages";
 import Navbar from "./components/Navbar";
-import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Timeline from "./components/Timeline";
@@ -13,14 +12,23 @@ import Event from "./components/Event";
 import Message from "./components/Message";
 import MyOrganisedEvents from "./components/MyOrganisedEvents";
 import UpdateEvent from "./components/UpdateEvent";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 
 
 
 function App() {
-  const currentUser = true
+  const currentUser = useContext(AuthContext)
+
+  const queryClient = new QueryClient()
 
   const Layout = () => {
     return (
+      <QueryClientProvider client={queryClient}>
       <div className="w-screen overflow-hidden">
     <Navbar />
     <div className='h-[100vh] flex'>
@@ -33,6 +41,7 @@ function App() {
        </div>
     </div>
     </div>   
+    </QueryClientProvider>
     );
   };
 
@@ -58,7 +67,7 @@ function App() {
           element: <Timeline />,
         },
         {
-          path: "/profile/:id",
+          path: "/profile/:userId",
           element: <Profile />,
         },
         ,
@@ -68,21 +77,21 @@ function App() {
         }
         ,
         {
-          path: "/messages/",
+          path: "/messages/:userId",
           element: <Messages />,
         },
         {
-          path: "/messages/:id",
+          path: "/messages/message/:id",
           element: <Message />,
         }
         ,
         {
-          path: "/update-user/:id",
+          path: "/update-user/:userId",
           element: <UpdateUser />,
         }
         ,
         {
-          path: "/my-organised-events/",
+          path: "/my-organised-events/:userId",
           element: <MyOrganisedEvents />,
         }
         ,

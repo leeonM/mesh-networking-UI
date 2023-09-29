@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
+import moment from 'moment';
 
 const TCard = ({event}) => {
-  const currentUser = 2
+  const currentUser = useContext(AuthContext)
+
   return (
     <div className='bg-white w-full rounded-md p-4 cursor-pointer md:w-[70%] relative'>
     <div className='flex items-center justify-between'>
@@ -11,8 +14,8 @@ const TCard = ({event}) => {
     </div>
         <div className='flex flex-col text-sm'>
         <p className='font-semibold bg-blue-800 w-fit p-1 rounded-md text-white mb-2'>{event.category}</p>     
-        <p className='font-semibold'>{event.date}</p>
-        <p>{event.desc}</p>
+        <p className='font-semibold'>{moment(event.date).format('MMMM Do YYYY')}</p>
+        <p>{event.description}</p>
         <p className="font-bold text-gray-700">{event.location}</p>
         <div>
             <img src={event.img} alt="" className='rounded-md' />
